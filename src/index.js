@@ -11,10 +11,17 @@ function App(props) {
   } else {
     let movArr = props.movies.map((movie, i) => {
       return (
-        <div key={movie.imdbID}>
-          <img src={movie.Poster}/>
+        <div key={movie.imdbID} 
+        style={{
+          backgroundImage: `url(${movie.Poster})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'opacity(.5)'
+        }}
+        className='movie-box'>
           <h1>{movie.Title}</h1>
-          <p>{movie.Year}</p>
+          <img src={movie.Poster} role='presentation'/>
+          <h3>Released: {movie.Year}</h3>
         </div>
       );
     });
@@ -31,14 +38,9 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-        //if loading -run preloader component
-        //if not loading - render movie component
-
-
 fetch('http://www.omdbapi.com/?s=Star%20Wars&plot=short&r=json')
     .then(res => res.json())
     .then(movies => {
-      console.log('movies.search', movies.Search);
       return movies.Search;
     })
     .then(movies => {
